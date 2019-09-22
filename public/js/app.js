@@ -26,14 +26,14 @@ const errorLocation = document.querySelector('#errorLocation')
 
 
 
-fetch('http://localhost:3000/wather?address=muscat').then((response)=> {
+fetch('/wather?address=muscat').then((response)=> {
 response.json().then((data)=>{
   muscatTitle.textContent=data.loction
        muscat.textContent=data.forcast
 })
 })
 
-fetch('http://localhost:3000/wather?address=qater').then((response)=> {
+fetch('/wather?address=qater').then((response)=> {
 response.json().then((data)=>{
   qaterTitle.textContent=data.loction
        qater.textContent=data.forcast
@@ -41,7 +41,7 @@ response.json().then((data)=>{
 })
 
 
-fetch('http://localhost:3000/wather?address=uae ').then((response)=> {
+fetch('/wather?address=uae ').then((response)=> {
 response.json().then((data)=>{
   uaeTitle.textContent=data.loction
        uae.textContent=data.forcast
@@ -49,7 +49,7 @@ response.json().then((data)=>{
 })
 
 
-fetch('http://localhost:3000/wather?address=Riyadh ').then((response)=> {
+fetch('/wather?address=Riyadh ').then((response)=> {
 response.json().then((data)=>{
   saudiTitle.textContent=data.loction
        saudi.textContent=data.forcast
@@ -57,14 +57,14 @@ response.json().then((data)=>{
 })
 
 
-fetch('http://localhost:3000/wather?address=london ').then((response)=> {
+fetch('/wather?address=london ').then((response)=> {
 response.json().then((data)=>{
   londonTitle.textContent=data.loction
        london.textContent=data.forcast
 })
 })
 
-fetch('http://localhost:3000/wather?address=new york ').then((response)=> {
+fetch('/wather?address=new york ').then((response)=> {
 response.json().then((data)=>{
   nyTitle.textContent=data.loction
        ny.textContent=data.forcast
@@ -88,7 +88,7 @@ watherForm.addEventListener('submit',(e)=>{
    body.textContent='...'
   
 
-    fetch('http://localhost:3000/wather?address='+locatiion).then((response)=> {
+    fetch('/wather?address='+locatiion).then((response)=> {
 
 response.json().then((data)=>{
     if (data.error){

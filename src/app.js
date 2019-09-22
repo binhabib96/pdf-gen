@@ -7,6 +7,7 @@ const forcast = require('./utlits/forecast')
 
 
 const app = express()
+const port = process.env.PORT || 3000
 
 //dfine paths foe express config
 const pathTopublic = path.join(__dirname,'../public')
