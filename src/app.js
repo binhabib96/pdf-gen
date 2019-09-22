@@ -117,6 +117,6 @@ geocode(req.query.address,(error,{longitude,latitude,loction} = {})=>{
 // })
 
 
-app.listen(3000,()=>{
-    console.log('server is up')
+app.listen(port,()=>{
+    console.log('server is up ' +port)
 })
