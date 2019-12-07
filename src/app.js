@@ -1,15 +1,17 @@
 const express = require('express')
 const path=require('path')
 const hbs = require('hbs')
-const geocode = require('./utlits/geocode')
-const forcast = require('./utlits/forecast')
+const bodyParser = require('body-parser')
+const pdf = require('html-pdf')
+const pdfTemplate = require('../docs/index');
 
 
 
 const app = express()
 const port = process.env.PORT || 3000
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-//dfine paths foe express config
+//dfine paths for express config
 const pathTopublic = path.join(__dirname,'../public')
 const viewsPath= path.join(__dirname,'../tamplets/views')
 const partslsPath = path.join(__dirname,'../tamplets/partsls')
@@ -23,98 +25,29 @@ hbs.registerPartials(partslsPath)
 app.use(express.static(pathTopublic)) // => express a static html pages and css and javascripts
 
 
-app.get('',(req,res)=>{
+app.get('/pdf-gen',(req,res)=>{
 
-    res.render('index',{
-        title:'Wather',
-        name:'Mohammed',
-        satusHome:'active'
-    })
+    res.render('index')
 })
 
+app.post('/pdf-gen',urlencodedParser,(req,res)=>{
 
-app.get('/about',(req,res)=>{
-    res.render('about',{
-        title:'about',
-        name:'Mohammed',
-        satusAbout:'active'
-    })
-})
-
-app.get('/help',(req,res)=>{
-    res.render('help',{
-        title:'help',
-        help:'here is the help ',
-        satusHelp:'active'
-    })
-})
-
-
-
-
-
-app.get('/wather',(req,res)=>{
-
-    if (!req.query.address){
-        return res.send({
-            error:'you must provide an address!'
-        })
-    }
-
-
-
-geocode(req.query.address,(error,{longitude,latitude,loction} = {})=>{
-
-    if(error){
+    pdf.create(pdfTemplate(req.body), {}).toFile(`Documents/employee ${req.body.name}.pdf`, (err) => {
+        if(err) {
+            res.send(Promise.reject());
+        }
         
-         return res.send({
-             error:error
-            })
 
+        res.render('index')
+
+       
       
-
-
-    }
-
-    forcast(latitude,longitude,(error,forcastData)=>{
-        if(error){
-            return console.log({error})
-          }
-
-          res.send({
-              forcast:forcastData,
-              loction:loction
-          })
+     
+    });
    
-      console.log(loction+' '+forcastData)
-    })
-})
 
-
-
-    
 
 })
-
-
-
-// another way 
-// app.get('',(req,res)=>{
-//     res.send('Hello world from backend')
-    
-// })
-
-// app.get('/help',(req,res)=>{
-//     res.send('this is help route')
-// })
-
-// app.get('/about',(req,res)=>{
-//     res.send('this is about route ')
-// })
-
-// app.get('/wather',(req,res)=>{
-//     res.send('this is wather page')
-// })
 
 
 app.listen(port,()=>{

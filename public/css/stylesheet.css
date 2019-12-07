@@ -49,3 +49,19 @@
     min-height:200px;
     color:#454857; 
 }
+.text-input{
+    margin: 10px 10px;
+    padding: 10px 10px;
+    position: relative;
+}
+
+p{
+    margin: 10px 10px;
+    padding: 10px 10px;
+    position: relative;
+}
+.btn{
+    margin: 10px 10px;
+}
+h1{
+    margin: 10px;}
